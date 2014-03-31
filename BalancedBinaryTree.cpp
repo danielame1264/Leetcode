@@ -1,4 +1,4 @@
-tion for binary tree
+/* definition for binary tree
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
