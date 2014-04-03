@@ -1,0 +1,97 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+// Answer from 喵酱，brilliant. mine has runtime error,the middle one 
+class Solution {
+    public:
+    void build(TreeNode *root, TreeNode *&tmp)
+    {
+        if(root)
+        {
+            build(root->right, tmp);
+            build(root->left, tmp);
+            
+            root->right=tmp;
+            tmp=root;
+            root->left=NULL;
+        }
+    }
+    void flatten(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        TreeNode *tmp=NULL;
+        build(root, tmp);
+        
+    }
+/*public:
+    void flatten(TreeNode *root) {
+       if(!root) return;
+       helper(root);
+    }
+    
+    TreeNode* helper(TreeNode* root){
+        if(root->left==NULL && root->right==NULL) return root;
+        TreeNode* righthead = NULL;
+        if(root->right!=NULL){
+            TreeNode* righthead = helper(root->right);
+        }
+        TreeNode* ptr = root;
+        if(root->left!=NULL){
+            TreeNode* lefthead = helper(root->left);
+            root->right=lefthead;
+            root->left = NULL;
+            lefthead->left=NULL;
+            while(ptr->right!=NULL){
+                ptr=ptr->right;   //left subtree already done, find the last element of left subtree
+            }
+        }
+        if(righthead!=NULL){
+             ptr->right=righthead;
+             righthead->left=NULL;
+         }
+       return root;
+        
+    } */
+};
+/*
+class Solution{
+    public:
+void flatten(TreeNode *root) {  
+       // Start typing your C/C++ solution below  
+       // DO NOT write int main() function  
+       if(root == NULL)  return;  
+       ConvertToLink(root);  
+  }  
+  
+  TreeNode* ConvertToLink(TreeNode* node)  
+  {  
+       if(node->left == NULL && node->right == NULL)  
+            return node;  
+       TreeNode* rHead = NULL;  
+       if(node->right != NULL)  
+           rHead = ConvertToLink(node->right);               
+       TreeNode* p = node;  
+       if(node->left!=NULL)  
+       {  
+            TreeNode* lHead = ConvertToLink(node->left);   
+            node->right = lHead;  
+            lHead->left = NULL;  
+            node->left = NULL;  
+            while(p->right!=NULL)  
+                 p = p->right;  
+       }       
+       if(rHead != NULL)  
+       {  
+            p->right = rHead;  
+            rHead->left = NULL;  
+       }  
+       return node;  
+  }  
+};
+*/
