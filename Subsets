@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        sort(S.begin(),S.end());
+        vector<vector<int> >  res;
+        vector<int> sol;
+        if(S.size()==0) return res;
+        res.push_back(sol);
+        int l = S.size();
+        for(int i=1;i!=l+1;i++){
+            //find combinations for each length of subset
+            Combination(S,i,0,res,sol);
+        }
+        return res;
+    }
+
+    void Combination(vector<int> &S, int k, int pos, vector<vector<int> > &res, vector<int> &sol){
+        if(sol.size()==k){
+            res.push_back(sol);
+            return;
+        }
+        else{
+            for(int i=pos; i<S.size(); i++){
+                sol.push_back(S[i]);
+                Combination( S, k, i+1, res, sol);
+                sol.pop_back();
+            }
+        }
+    }
+  
+};
