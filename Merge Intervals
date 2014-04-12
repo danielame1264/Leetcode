@@ -7,22 +7,44 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
+ 
 class Solution {
 public:
+    static bool comparable(const Interval &Interval1, const Interval Interval2){
+        return Interval1.start < Interval2.start;
+    }
+    
     vector<Interval> merge(vector<Interval> &intervals) {
-        for(auto k=intervals.begin();k!=intervals.end();k++){
-            if(start>end){
-                int temp = start;
-                start = end;
-                end = temp;
+        if((intervals.size()==0) || (intervals.size()==1)) return intervals;
+        sort(intervals.begin(),intervals.end(),comparable); 
+ /*       auto i= intervals.begin();
+        auto j=i+1;
+        while(j!=intervals.end()&& i!=intervals.end()){
+            if(i->end > j->end){
+                j=intervals.erase(j);
+            }
+            else if(i->end > j->start){
+                j->start = i->start;
+                i=intervals.erase(i);
+                j++;
+            }
+            else {
+                i++;
+                j++;
             }
         }
-        auto i= intervals.begin();
-        auto j= intervals.begin();
-        j++;
-        while(j!=intervals.end()){
-            if(i->end > j->start)
+        */  //inplace somehow incorrect
+        vector<Interval> res;
+        res.push_back(intervals[0]);
+        for(auto i=1;i!=intervals.size();i++){
+            if(res.back().end >= intervals[i].start){
+                res.back().end = max(res.back().end, intervals[i].end);
+            }
+            else{
+                res.push_back(intervals[i]);
+            }
         }
         
+        return res;
     }
 };
