@@ -1,0 +1,46 @@
+class Solution {
+private:
+    bool canTrans(string a, string b){
+        int dif = 0;
+        for (int i = 0; i < a.length(); i++){
+            if (a[i] != b[i]){
+                dif++;
+                if (dif >= 2){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+ 
+ 
+public:
+    int ladderLength(string start, string end, unordered_set<string> &dict) {
+        queue<string> wq;
+        queue<int> lq;
+        wq.push(start);
+        lq.push(1);
+        while (!wq.empty()){
+            string word(wq.front());
+            wq.pop();
+            int lev = lq.front();
+            lq.pop();
+            for (int i = 0; i < word.length(); i++){
+                char temp = word[i];
+                for (char c = 'a'; c <= 'z'; c++){
+                    word[i] = c;
+                    if (word == end){
+                        return lev + 1;
+                    }
+                    if (dict.find(word) != dict.end()){
+                        wq.push(word);
+                        lq.push(lev + 1);
+                            dict.erase(word);
+                    }
+                    word[i] = temp;
+                }
+            }
+        }
+        return 0;
+    }
+};
