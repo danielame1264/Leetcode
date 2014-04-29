@@ -1,0 +1,30 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int sumNumbers(TreeNode *root) {
+        int sum =0;
+        int temp =0;
+        sumhelper( root, sum, temp);
+        return sum;
+    }
+    
+    void sumhelper(TreeNode *root, int& sum, int temp){
+        
+        if(!root) return;
+        temp = temp*10+root->val;
+        if(!root->left && !root->right){
+            sum+=temp;
+            return;
+        }
+        sumhelper(root->left,sum, temp);
+        sumhelper(root->right,sum, temp);// the temp here is still the copy of its calling function, not from root->left
+    }
+};
