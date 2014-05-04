@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canJump(int A[], int n) {
+// one dimension dynamic programming
+// can[i] means maximum step you can go from index i
+// if can[i]-i<=0 and it's not the last one, than return false;
+        if(n==0 || n==1 ) return true;
+        if(A[0]==0) return false;
+        int *can = new int[n];
+        can[0]=A[0];
+        for(int i=1; i<n;i++){
+            can[i] = max(can[i-1],i+A[i]);
+            if(((can[i]-i)<=0)&&i!=(n-1)) return false;
+        }
+        return true;
+    }
+};
