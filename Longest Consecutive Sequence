@@ -1,0 +1,74 @@
+/*lass Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        unordered_map<int,bool> map;
+        //vector<int> len(num.size(),1);
+        
+        int max_len=1;
+        for(int i=0;i<num.size();i++){
+            //map.insert(make_pair(num[i],false));
+            map[num[i]]=false;
+        }
+        
+        for(int i=0;i<num.size();i++){
+            if(map[num[i]]==false){
+              int len=1;
+              int left = num[i]-1;
+              int right= num[i]+1;
+              map[num[i]]=true;   
+            //map.erase(num[i]);
+            while(map.count(right) && !map[right]){
+                map[right++]==true;
+                len++;
+                //right++;
+               // 
+            }
+            while( map.count(left) && !map[left]){
+                map[left--]==true;
+                len++;
+                //left--;
+               // map.erase(num[i]);
+            }
+            if(len>max_len) max_len=len;
+            }
+        }
+        return max_len;
+    }
+};
+
+*/
+My code in in between comment , don't know why it does not work. Meanwhile, this is not O(n) exactly.
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        unordered_map<int, int> hashmap;
+        int max=0;
+        for(int i=0; i<num.size(); i++) hashmap[num[i]]=1;
+        
+        for(int i=0; i<num.size(); i++)
+        {
+            if(hashmap[num[i]]==1)
+            {
+                hashmap[num[i]]=0;
+                int len=1;
+                int left=num[i]-1;
+                int right=num[i]+1;
+                
+                while(hashmap.count(left)&&hashmap[left])
+                {
+                    hashmap[left--]=0;
+                    len++;
+                }
+                while(hashmap.count(right)&&hashmap[right])
+                {
+                    hashmap[right++]=0;
+                    len++;
+                }
+                if(len>max) max=len;
+            }
+        }
+        return max;
+}
+};
