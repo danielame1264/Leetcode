@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        s='!'+s;
+        int len = s.length();
+        vector<bool> feasible(s.length(),false);
+        feasible[0]=true;
+        for(int i=1;i<len;++i){
+            for(int j=0;j<i;++j){
+                feasible[i]= feasible[j] &&(dict.find(s.substr(j+1,i-j))!=dict.end());
+                if(feasible[i]==true) break;
+            }
+        }
+        return feasible[len-1];
+    }
+};
