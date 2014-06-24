@@ -1,0 +1,67 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+     /*   StringBuilder result = new StringBuilder();
+
+        String realA= new StringBuilder(a).reverse().toString();
+        String realB= new StringBuilder(b).reverse().toString();
+        
+        int carry =0;
+        int lengthA = realA.length();
+        int lengthB = realB.length();
+        int smallerLength = Math.min(lengthA, lengthB);
+        for(int i=0;i<smallerLength;i++){
+            int digitA = realA.charAt(i)-'0';
+            int digitB = realB.charAt(i)-'0';
+            if(carry==0 && digitA==0 && digitB==0){
+                result.append('0');
+            }
+            else{
+                result.append('1');
+            }
+             
+            carry = (carry+digitA+digitB)>1?1:0;
+        }
+        
+        if(lengthA>=smallerLength){
+            
+        }
+        
+        */
+        StringBuilder result = new StringBuilder();
+        int lengthA = a.length();
+        int lengthB = b.length();
+        
+        if(lengthA>lengthB){
+            StringBuilder padding = new StringBuilder(b);
+            for(int i=0;i<(lengthA-lengthB);i++){
+                padding.insert(0,"0");
+            }
+             b = padding.toString(); 
+        }
+        
+        if(lengthA<lengthB){
+            StringBuilder padding = new StringBuilder(a);
+            for(int i=0;i<(lengthB-lengthA);i++){
+                padding.insert(0,"0");
+            }
+             a = padding.toString(); 
+        }
+        int carry=0;
+        for(int i=(a.length()-1);i>=0;i--){
+            if((carry + (a.charAt(i)-'0') + (b.charAt(i)-'0'))%2==0){
+                result.insert(0,'0');
+            }
+         
+            else{
+                result.insert(0,'1');
+            }
+            
+            carry = (carry+(a.charAt(i)-'0')+(b.charAt(i)-'0'))>1?1:0;
+        }
+        if(carry==1){
+            result.insert(0,'1');
+        }
+        return result.toString();
+        
+    }
+}
