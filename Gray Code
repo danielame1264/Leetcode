@@ -1,0 +1,23 @@
+public class Solution {
+    public List<Integer> grayCode(int n) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        res.add(0);
+        if(n==0) return res;
+        res.add(1);
+        if(n==1) return res;
+        for(int i=1;i<n;i++){
+            reflect(res,i);
+        }
+        return res;
+    }
+    
+    public void reflect(ArrayList<Integer> res, int i){
+        ArrayList<Integer> pad = new ArrayList<Integer>(res);
+        Collections.reverse(pad);
+        for(int j=0;j<pad.size();j++){
+            pad.set(j,(int)(pad.get(j)+Math.pow(2,i)));
+        }
+        res.addAll(pad);
+        
+    }
+}
