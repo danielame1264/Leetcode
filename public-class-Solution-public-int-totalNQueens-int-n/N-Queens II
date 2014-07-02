@@ -1,0 +1,35 @@
+public class Solution {
+    public int totalNQueens(int n) {
+        // col[row]=i means that there is a queen at column i in row row
+        int[] col = new int[n];
+        return NQ(col,n,0);
+    }
+    
+    public int NQ(int[] col, int n, int row){
+        int sum=0;
+        if(row==n){
+            return 1;
+        }
+        for(int i=0;i<n;i++){
+            if(valid(col,row,i)){
+                col[row]=i;
+                sum+=NQ(col,n,row+1);
+            }
+        }
+        
+        return sum;
+    }
+    public boolean valid(int[] col, int row, int i){
+        for(int j=0;j<row;j++){
+            if(col[j]==i) return false;
+            
+            int rowDiff = row-j;
+            int colDiff = Math.abs(col[j]-i);
+            
+            if(rowDiff==colDiff) return false;
+        }
+        
+        return true;
+    }
+
+}
