@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean isValid(String s) {
+        LinkedList<Character> parens = new LinkedList<Character>();
+
+        // if(s.charAt(0)==']' || s.charAt(0)==')' || s.charAt(0)=='}') return false;
+        
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(') parens.add('(');
+            if(s.charAt(i)=='[') parens.add('[');
+            if(s.charAt(i)=='{') parens.add('{');
+            
+            if(s.charAt(i)==')'){
+                if(parens.peekLast()==null || parens.peekLast()!='(') return false;
+                else parens.removeLast();
+            } 
+            if(s.charAt(i)==']'){
+                if(parens.peekLast()==null || parens.peekLast()!='[') return false;
+                else parens.removeLast();
+            } 
+            if(s.charAt(i)=='}'){
+                if(parens.peekLast()==null || parens.peekLast()!='{') return false;
+                else parens.removeLast();
+            } 
+        }
+        if(parens.isEmpty())
+        return true;
+        else return false;
+        
+    }
+}
