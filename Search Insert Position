@@ -1,0 +1,15 @@
+public class Solution {
+    public int searchInsert(int[] A, int target) {
+        
+        for(int i=0;i<A.length-1;i++){
+            
+            if(A[i]<target && A[i+1]>target) return i+1;
+            if(A[i]>=target) return i;
+        }
+        int i=A.length-1;
+        if(A[i]>=target) return i;
+        
+        else return i+1;
+        
+    }
+}
