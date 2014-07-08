@@ -6,3 +6,17 @@ public class Solution {
         else return array[array.length-1].length();
     }
 }
+
+
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        s = s.trim();// well may be it's cheaty
+        String m = new StringBuilder(s).reverse().toString();
+        int count=0;
+        for(int i=0; i<m.length();i++){
+            if(m.charAt(i)==' ') return count;
+            else count++;
+        }
+        return count;
+    }
+}
