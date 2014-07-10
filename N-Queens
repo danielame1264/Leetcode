@@ -1,0 +1,53 @@
+public class Solution {
+    
+    ArrayList<int[]> possibilities = new ArrayList<int[]>();
+    
+    public List<String[]> solveNQueens(int n) {
+        int[] col = new int[n];
+        nq(0,col,n);
+        return convert(n);
+    }
+    
+    public void nq(int row, int[] col, int n){
+        if(row==n){
+            possibilities.add(Arrays.copyOf(col,n));
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(isValid(col,i,row)){
+                col[row]=i;
+                nq(row+1,col,n);
+            }
+        }
+    }
+    
+    public boolean isValid(int[] col,int i,int row){
+        for(int j=0;j<row;j++){
+            if(col[j]==i) return false;
+            
+            int horiDiff = Math.abs(col[j]-i);
+            int verDiff = row-j;
+             if(verDiff==horiDiff) return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<String[]> convert(int n){
+        ArrayList<String[]> res = new ArrayList<String[]>();
+        for(int i=0;i<possibilities.size();i++){
+            String[] tmp = new String[n];
+            for(int j=0;j<n;j++){
+                int colPos = possibilities.get(i)[j];
+                StringBuilder builder = new StringBuilder();
+                for(int k=0;k<n;k++){
+                    if(k==colPos) builder.append("Q");
+                    else builder.append(".");
+                }
+                tmp[j]=builder.toString();
+            }
+            res.add(tmp);
+        }
+        return res;
+    }
+    
+}
