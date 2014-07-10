@@ -1,0 +1,38 @@
+public class Solution {
+    ArrayList<List<String>> res = new ArrayList<List<String>>();
+    ArrayList<String> temp = new ArrayList<String>();
+    
+    public List<List<String>> partition(String s) {
+        helper(s);
+        return res;
+        
+        
+        
+    }
+    
+    public void helper(String s) {
+    
+        if(s.length()==0){
+            res.add(new ArrayList<String>(temp));
+        }
+        int start=0;
+        int end = s.length();
+        for(int i=start;i<end;i++){
+            if(valid(s.substring(start,i+1))){
+                temp.add(s.substring(start,i+1));
+                partition(s.substring(i+1,end));
+                temp.remove(temp.size()-1);
+            }
+
+        }
+        
+        
+    }
+    
+    
+    boolean valid(String s){
+        String r = new StringBuilder(s).reverse().toString();
+        if(r.equals(s)) return true;
+        else return false;
+    }
+}
