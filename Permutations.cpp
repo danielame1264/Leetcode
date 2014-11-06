@@ -27,3 +27,30 @@ public:
     
     
 };
+
+
+
+public class Solution {
+    public List<List<Integer>> permute(int[] num) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        List<Integer> current = new ArrayList<Integer>();
+        
+        perm(num,res,current);
+        return res;
+    }
+    
+    public void perm(int[] num, List<List<Integer>> res, List<Integer> current){
+        if(current.size()==num.length){
+            res.add(new ArrayList<Integer>(current));
+        } else {
+            for(int i=0;i<num.length;i++){
+                if(current.contains(num[i])) continue;
+                else {
+                    current.add(num[i]);
+                    perm(num,res,current);
+                    current.remove(current.size()-1);
+                }
+            }
+        }
+    }
+}
