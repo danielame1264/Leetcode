@@ -1,0 +1,24 @@
+Follow up for "Find Minimum in Rotated Sorted Array":
+What if duplicates are allowed?
+
+Would this affect the run-time complexity? How and why?
+
+public class Solution {
+    public int findMin(int[] num) {
+        int[] num2 = new int[num.length*2];
+        int count =0;
+        while(count<2){
+            for(int i=0;i<num.length;i++){
+                num2[count*num.length+i]=num[i];
+            }
+            count++;
+        }
+        
+        for(int i=1;i<num2.length;i++){
+            if(num2[i]<num2[i-1]){
+                return num2[i];
+            }
+        }
+        return num2[0];  // Totally just for syntax issue , I guess
+    }
+}
