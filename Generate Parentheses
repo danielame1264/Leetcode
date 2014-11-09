@@ -1,0 +1,26 @@
+public class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<String>();
+        char[] sol = new char[n*2];
+        helper(res,n,n,sol,0);
+        return res;
+    }
+    
+    public void helper(List<String> res, int rightRem , int leftRem, char[] sb, int count){
+        if( leftRem<0 || leftRem > rightRem) return;
+        if(rightRem==0 && leftRem ==0){
+            res.add(new String(sb));
+        }
+        else{
+            if(leftRem>0){
+            sb[count]='(';
+            helper(res,rightRem,leftRem-1,sb,count+1);
+        }
+        if(rightRem > leftRem){
+            sb[count]=')';
+            helper(res,rightRem-1,leftRem,sb,count+1);
+        }
+        }
+
+    }
+}
