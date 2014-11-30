@@ -70,3 +70,26 @@ public class Solution {
 	return result;
 }
 }
+
+
+public static ArrayList<ArrayList<Integer>> subsets(int[] S) {
+		Arrays.sort(S);
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		
+		subsetsHelper(result, list, S, 0);
+		
+		return result;
+    }
+ 
+	private static void subsetsHelper(ArrayList<ArrayList<Integer>> result,
+			ArrayList<Integer> list, int[] s, int position) {
+		
+		result.add(new ArrayList<Integer>(list));
+		
+		for (int i = position; i < s.length; i++) {
+			list.add(s[i]);
+			subsetsHelper(result, list, s, i+1);
+			list.remove(list.size() - 1);
+		}
+	}
