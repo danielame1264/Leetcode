@@ -26,3 +26,29 @@ public:
         }
     }
 };
+
+
+
+public class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        
+        comb(n,k,res,list,1);
+        return res;
+
+    }
+    public void comb(int n,int k, List<List<Integer>> res, List<Integer> list,int pos){
+        if(list.size()==k){
+            res.add(new ArrayList<Integer>(list));
+        } else {
+            for(int i=pos;i<=n;i++){
+                    list.add(i);
+                    comb(n,k,res,list,i+1);
+                    list.remove(list.size()-1);
+                
+            }
+        }
+    }
+}
