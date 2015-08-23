@@ -49,3 +49,18 @@ public class Solution {
         return res;
     }
 }
+
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        dictionary = dict()
+        for i in range(len(nums)):
+            if nums[i] in dictionary.keys():
+                return [dictionary.get(nums[i])+1, i+1]
+            else:
+                dictionary.update({target-nums[i]: i})
