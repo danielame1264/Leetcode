@@ -1,0 +1,17 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        lastRepeated = -1
+        longestSub = 0
+        positions = {}  # a dictionary, key is element in s and value is index
+        for i in range(0, len(s)):
+            if s[i] in positions and lastRepeated < positions[s[i]]:
+                lastRepeated = positions[s[i]]
+            positions[s[i]] = i
+            if i-lastRepeated > longestSub:
+                longestSub  = i-lastRepeated
+            
+        return longestSub
