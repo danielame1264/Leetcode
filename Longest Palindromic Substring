@@ -36,3 +36,27 @@ public class Solution {
   	return s.substring(begin + 1, end);
   }
 }
+
+class Solution(object):  # doesn't work b/c TLE
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        arr[i][i] = 1
+        arr[i][j] = arr[i+1][j-1] && s[i]==s[j] if j-i > 2
+        arr[i][j] = s[i]==s[j] if j-i <= 2
+        """
+        start = 0
+        end = 0
+        max = 0
+        arr = [[0 for i in range(len(s))] for j in range(len(s))]
+        
+        for i in range(len(s)):
+            arr[i][i] = 1
+            for j in range(0,i):
+                arr[i][j] = (s[i]==s[j] and (j-i<=2 or arr[i+1][j-1]))
+                if arr[i][j] and max<(j-i+1):
+                    start = i
+                    end = j
+                    max = j-i + 1
+        return s[start:end]
