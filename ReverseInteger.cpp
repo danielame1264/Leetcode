@@ -16,3 +16,23 @@ public:
     else return result;
     }        
 };
+
+class Solution(object):
+    import sys
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        is_neg = (x<0)
+        x = -x if is_neg else x
+        char_list = list(str(x))[::-1]
+        i=0
+        while (i<len(char_list)) and (char_list[i] == '0'):
+            i+=1
+        char_list = char_list[i:]
+        if len(char_list) ==0:
+            return 0
+        else:
+            out = -int(''.join(char_list)) if is_neg else int(''.join(char_list))
+            return 0 if out > sys.maxint else out
