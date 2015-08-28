@@ -25,5 +25,42 @@ public int atoi(String str) {
 }
 
 
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        pointer = 0
+        isNegative = False
+        while pointer<len(str) and str[pointer]==' ':
+            pointer += 1
+        if pointer==len(str):
+            return 0
+        if str[pointer] == '-':
+            isNegative = True
+            pointer += 1
+        elif str[pointer] == '+':
+            isNegative = False
+            pointer += 1
+        solution = 0
+        for pointer in range(pointer, len(str)):
+            if not str[pointer].isdigit():
+                break
+            else:
+                solution *= 10
+                solution += int(str[pointer])
+                
+        #This is because leetcode question is not prepared to Python but to Java/C so we truncate it
+        if not isNegative and solution > 2147483647:
+            return 2147483647
+        elif isNegative and solution > 2147483648:
+            return -2147483648
+            
+        if isNegative:
+            return -1 * solution;
+        else:
+            return solution;
+
 
 }
