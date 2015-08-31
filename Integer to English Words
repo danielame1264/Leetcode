@@ -1,0 +1,41 @@
+class Solution(object):
+    def numberToWords(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        res=''
+        if num == 0: return 'Zero'
+        if num/1000000000>0:
+            res += self.helper(num/1000000000, 'Billion ')
+            num = num%1000000000
+        if num/1000000>0:
+            res += self.helper(num/1000000, 'Million ')
+            num = num%1000000
+        if num/1000>0:
+            res += self.helper(num/1000, 'Thousand ')
+            num = num%1000
+        res+= self.helper(num, '')
+        res = res[:-1]
+        return res
+
+    def helper(self, num, level):
+            res = ''
+            dic_single = {1:'One', 2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven',8:'Eight',9:'Nine'}
+            dic_double = {10:'Ten',11:'Eleven',12:'Twelve',13:'Thirteen',14:'Fourteen',15:'Fifteen',16:'Sixteen',17:'Seventeen',18:'Eighteen',19:'Nineteen',20:'Twenty' }
+            dic_tenish = {1:'Ten',2:'Twenty',3:'Thirty',4:'Forty',5:'Fifty',6:'Sixty',7:'Seventy',8:'Eighty',9:'Ninety'}
+
+            if num/100>0:
+                res += (dic_single[num/100]+ ' ' + 'Hundred ')
+                num = num%100
+                if num==0 and level!='': return (res+level)
+            if num/10>=2 and num%10==0:
+                res += (dic_tenish[num/10]+ ' ' + level)
+            elif num<=20 and num>=10:
+                res += (dic_double[num]+ ' ' +level)
+            elif num/10>=2 and num%10!=0:
+                res += (dic_tenish[num/10] + ' ' + dic_single[num%10]+ ' '+ level)
+            elif num/10==0 and num!=0:
+                res+= (dic_single[num]+ ' ' +level)
+            
+            return res
