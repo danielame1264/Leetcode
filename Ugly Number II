@@ -1,0 +1,34 @@
+class Solution(object):
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ugly_list = [1, 2, 3]
+        if n<=3: return ugly_list[n-1]
+        helper_heap = []
+        for j in ugly_list:
+            heapq.heappush(helper_heap, j*2)
+            heapq.heappush(helper_heap, j*3)
+            heapq.heappush(helper_heap, j*5)
+
+        # n starts at 4
+        for i in range(n-3): # i is 0 when n is 4
+            current_high = ugly_list[i+3-1]
+            next_big = heapq.heappop(helper_heap)
+            while next_big<=current_high:
+                next_big = heapq.heappop(helper_heap)
+                
+            ugly_list.append(next_big)
+            
+            heapq.heappush(helper_heap, next_big*2)
+            heapq.heappush(helper_heap, next_big*3)
+            heapq.heappush(helper_heap, next_big*5)
+            
+        return ugly_list[n-1]
+            
+                    
+            
+            
+            
+        
