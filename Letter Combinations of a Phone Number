@@ -37,3 +37,26 @@ public class Solution {
 
 
 }
+
+
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        dic = {'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+        res = []
+        if not digits : return res
+        sol = [0]*len(digits)
+        self.helper(digits, 0, sol, res, dic)
+        return res
+                
+    def helper(self, digits, position, sol, res, dic):
+        if position == len(sol):
+            res.append(''.join(sol))
+            return
+        cur = dic[digits[position]]
+        for i in range(len(cur)):
+            sol[position] = cur[i]
+            self.helper(digits, position+1, sol, res, dic)
