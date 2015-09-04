@@ -1,0 +1,72 @@
+class Solution(object):
+    # Shitty code that passes
+    # def calculate(self, s):
+    #     """
+    #     :type s: str
+    #     :rtype: int
+    #     """
+    #     stack = []
+    #     res = 0
+    #     cur_num = 0
+    #     index = 0
+    #     while index<len(s):
+    #         if s[index] == '+' or s[index] == '-':
+    #             stack.append(s[index])
+    #         if s[index] == '(':
+    #             stack.append(s[index])
+    #         if s[index] >= '0' and s[index] <= '9':
+    #             cur_num = int(s[index])
+    #             while index<len(s)-1 and s[index+1]>='0' and s[index+1]<='9':
+    #                 index+=1
+    #                 cur_num = int(s[index])+ cur_num*10
+    #             stack.append(cur_num)
+    #             cur_num = 0 
+                    
+    #         if s[index] == ')':
+    #             # pop two everytime, the second one is always gonna be either a plus sign or an 
+    #             cur_res = 0
+    #             while len(stack)>0:
+    #                 num = stack.pop()
+    #                 operand = stack.pop()
+    #                 cur_res = cur_res + num if operand !='-' else cur_res - num
+    #                 if operand == '(': break
+    #             stack.append(cur_res)
+    #         index += 1
+    
+    #     if len(stack)>0:
+    #         res += stack[0]
+    #         stack = stack[1:]
+    #         while len(stack)>0:
+    #             num = stack.pop()
+    #             operand = stack.pop()
+    #             res = res + num if operand !='-' else res - num
+    #             if operand == '(': break
+        
+    #     return res
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        operands = []
+        numbers = []
+        num = 0
+        sign =1
+        res = 0
+        for i in s:
+            if i >='0' and i<='9':
+                num = num*10 + int(i)
+            else:
+                res += sign*num
+                num =0
+                if i == '+': sign =1
+                if i == '-': sign = -1
+                if i == '(': 
+                    numbers.append(res)
+                    operands.append(sign)
+                    res = 0
+                    sign = 1
+                if i == ')' and len(operands)>0:
+                    res = operands.pop() * res + numbers.pop()
+        res += num * sign
+        return res
