@@ -23,3 +23,29 @@ public class Solution {
         
     }
 }
+
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        res = nums[0]+nums[1]+nums[2]
+        cur = abs(nums[0]+nums[1]+nums[2] - target)
+        
+        for i in range(len(nums)-2):
+            start = i+1
+            end = len(nums)-1
+            while start < end:
+                temp = nums[i]+nums[start]+nums[end]
+                if  temp - target ==0:
+                    return target
+                if abs(temp - target) < cur:
+                    cur = abs(temp - target)
+                    res = temp
+                
+                if temp<target: start+=1
+                else: end -=1
+        return res
