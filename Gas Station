@@ -26,3 +26,31 @@ public:
         }
     }
 };
+
+
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        diff = []
+        N = len(gas)
+        for i in range(N):
+            diff.append(gas[i]-cost[i])
+        start = 0
+        sum = 0
+        gasLeft = 0
+        for i in range(N):
+            sum += diff[i]
+            gasLeft += diff[i]
+            if sum<0:
+                start = i+1
+                sum = 0
+        
+        if gasLeft<0:
+             return -1
+        else: return start
+                
+        
