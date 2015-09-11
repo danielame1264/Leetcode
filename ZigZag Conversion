@@ -1,0 +1,53 @@
+    public String convert(String s, int numRows) {
+
+        if(s==null || s.length()<=1 || numRows==1) return s;
+
+        StringBuilder builder = new StringBuilder();
+
+        int step = 2*(numRows-1);
+
+        for(int i=0; i<numRows; i++) {
+
+            if(i==0 || i==numRows-1) {
+
+                for (int j = i; j < s.length(); j = j + step) {
+
+                    builder.append(s.charAt(j));
+
+                }
+
+            } else {
+
+                int j=i;
+
+                int offset1 = 2*(numRows-1-i);
+
+                int offset2 = 2*i;
+
+                boolean flag =true;
+
+                while(j<s.length()) {
+
+                    builder.append(s.charAt(j));
+
+                    if(flag) {
+
+                        j += offset1;
+
+                    } else {
+
+                        j += offset2;
+
+                    }
+
+                    flag = !flag;
+
+                }
+
+            }
+
+        }
+
+        return builder.toString();
+
+    }
