@@ -36,3 +36,22 @@ class Solution(object):
         else:
             out = -int(''.join(char_list)) if is_neg else int(''.join(char_list))
             return 0 if out > sys.maxint else out
+
+class Solution(object):
+    import sys
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        MAX_VALUE =  2147483647
+        MIN_VALUE =  -2147483647
+        is_neg = (x<0)
+        x = -x if is_neg else x
+        res = 0
+        while x>0:
+            res = res*10 + x%10
+            x = x/10
+        if is_neg: res= -res
+        if res<MAX_VALUE and res>MIN_VALUE: return res
+        else: return 0
