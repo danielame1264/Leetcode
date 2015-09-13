@@ -1,0 +1,59 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# http://articles.leetcode.com/2010/10/binary-tree-post-order-traversal.html
+
+class Solution(object):
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        if not root: return res
+        stack = []
+        prev = None
+        stack.append(root)
+        while len(stack)>0:
+            cur = stack[-1]
+            if not prev or prev.left==cur or prev.right==cur:
+                if cur.left:
+                    stack.append(cur.left)
+                elif cur.right:
+                    stack.append(cur.right)
+                else:
+                    res.append(cur.val)
+                    stack.pop()
+            
+            elif prev==cur.left:
+                if cur.right:
+                    stack.append(cur.right)
+                else:
+                    res.append(cur.val)
+                    stack.pop()
+            elif prev==cur.right:
+                res.append(cur.val)
+                stack.pop()
+            prev=cur
+        return res
+        
+        # res = []
+        # if not root: return res
+        # stack1=[]
+        # stack2=[]
+        # stack1.append(root)
+        # while len(stack1)>0:
+        #     cur = stack1[-1]
+        #     stack2.append(stack1.pop())
+        #     if cur.left:
+        #         stack1.append(cur.left)
+        #     if cur.right:
+        #         stack1.append(cur.right)
+        # while len(stack2)>0:
+        #     res.append(stack2.pop().val)
+        # return res
+            
