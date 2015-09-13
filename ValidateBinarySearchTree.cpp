@@ -51,3 +51,27 @@ public:
 //    }
 
 };
+
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        import sys
+        return self.helper(root,-sys.maxint-1,sys.maxint+1)
+        
+    def helper(self, root, min, max):
+        if not root: return True
+        if root.val > min and root.val<max:
+            return self.helper(root.left, min, root.val) and self.helper(root.right, root.val, max)
+        else: return False  
