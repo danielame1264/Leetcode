@@ -47,3 +47,53 @@ public class Solution {
         return dummy.next;
     }
 }
+
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        if len(lists)==0 or not lists: return None
+        numList = len(lists)
+        return self.helper(lists, 0, numList-1)
+        
+    def helper(self, lists, start, end):
+        if end-start==1:
+            return self.mergeTwoLists(lists[start], lists[end])
+        elif end-start ==0:
+            return self.mergeTwoLists(lists[start], None)
+        else:
+            return self.mergeTwoLists(self.helper(lists, start, int((start+end)/2)-1), self.helper(lists, int((start+end)/2), end))
+            
+        
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        header = ListNode(0)
+        dummy = header
+        while l2!=None and l1!=None:
+            if l1.val<=l2.val:
+                header.next = l1
+                header = header.next
+                l1 = l1.next
+            elif l2.val<l1.val:
+                header.next = l2
+                header = header.next
+                l2 = l2.next
+            
+        if l1:
+            header.next = l1
+        elif l2:
+            header.next = l2
+        return dummy.next
