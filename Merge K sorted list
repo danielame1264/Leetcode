@@ -97,3 +97,30 @@ class Solution(object):
         elif l2:
             header.next = l2
         return dummy.next
+
+
+
+def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        # now let's use python's priority queue to do it.Good old way
+        header = ListNode(0)
+        dummy = header
+        heap = []
+        if len(lists)==0 or not lists: return None
+        for node in lists:
+            if node:
+                heap.append((node.val, node))
+        heapq.heapify(heap)
+        
+        while len(heap)>0:
+            pop = heapq.heappop(heap)
+            header.next = pop[1]
+            header = header.next
+            
+            if pop[1].next:
+                heapq.heappush(heap, (pop[1].next.val,pop[1].next))
+        
+        return dummy.next
