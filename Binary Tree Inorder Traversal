@@ -72,3 +72,28 @@ class Solution(object):
 
 
 http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/
+
+current, pre = root, None
+        res = []
+        if not root: return res
+        while current != None:
+            if current.left:
+                # if current has left child, find the right most node of its left child and set its right to current
+                pre = current.left
+                while pre.right and pre.right!=current:
+                    pre = pre.right
+                
+                if not pre.right:
+                    # set its right to current
+                    pre.right = current
+                    current = current.left
+                else:
+                    # Revert the changes made in if part to restore the original 
+                    # tree i.e., fix the right child of predecssor 
+                    pre.right = None
+                    res.append(current.val)
+                    current = current.right
+            else:
+                res.append(current.val)
+                current = current.right
+        return res
