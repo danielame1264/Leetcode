@@ -28,3 +28,11 @@ class Solution(object):
             head = temp
         
         return prev 
+
+
+def recursion(self, prev, head):
+        if not head return prev
+        
+        next = recursion(head, head.next)
+        head.next = prev;
+        return next
