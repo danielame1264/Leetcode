@@ -31,3 +31,60 @@ class Solution(object):
 
 
 There is KMP algo there. Check that out if possible.
+
+
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if not needle: return 0
+        if len(needle)>len(haystack): return -1
+        F = []
+        for i in range(len(needle)):
+            F.append(-1)
+        self.failure_function(needle, F)
+        
+        j = 0  # index for needle helper array
+        i=0 # index for stack
+        while i<len(haystack):
+            if haystack[i]==needle[j]:
+                i+=1
+                j+=1
+            if j == len(needle):
+                return i-j
+                
+            elif i<len(haystack) and haystack[i] != needle[j]:
+                if j!=0:
+                    j=F[j-1]
+                else:
+                    i+=1
+        return -1
+                
+        
+    
+    def failure_function(self, needle, F):
+        i = 0
+        j = 0
+        F[i]=0
+        i=1
+        
+        while i<len(needle):
+            if needle[i]==needle[j]:
+                j+=1
+                F[i] = j
+                i+=1
+            else:
+                if j==0:
+                    F[i]=0
+                    i+=1
+                else:
+                    j = F[j-1]
+        
+        
+        
+    http://www.geeksforgeeks.org/searching-for-patterns-set-2-kmp-algorithm/#disqus_thread
+    https://www.topcoder.com/community/data-science/data-science-tutorials/introduction-to-string-searching-algorithms/
+    https://www.youtube.com/watch?v=KG44VoDtsAA
