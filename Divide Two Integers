@@ -1,0 +1,31 @@
+class Solution(object):
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+
+        sign = 1
+        if dividend<0:
+            sign*=-1
+            dividend*=-1
+        if divisor<0:
+            sign*=-1
+            divisor*=-1
+        if dividend<divisor or dividend==0: return 0
+        if dividend==divisor: return sign
+        res = 0
+        tmp = 0
+        count = 0
+        while divisor<=dividend:
+            tmp = divisor
+            count = 1
+            while tmp+tmp<dividend:
+                tmp+=tmp
+                count+=count
+            
+            dividend -= tmp
+            res+=count
+            
+        return res*sign if res*sign<=2147483647 and res*sign>=-2147483648 else 2147483647  # Make int max different for python , leetcode!
