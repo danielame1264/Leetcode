@@ -1,0 +1,16 @@
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        redundant_index = len(nums)
+        cursor = 0
+        while cursor<redundant_index:
+            if nums[cursor]==val:
+                nums[cursor], nums[redundant_index-1] = nums[redundant_index-1], nums[cursor]
+                redundant_index-=1
+            else:
+                cursor+=1
+        return redundant_index
