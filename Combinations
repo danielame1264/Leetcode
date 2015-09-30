@@ -52,3 +52,25 @@ public class Solution {
         }
     }
 }
+
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        self.count = 0
+        
+        def dfs(start, cur):
+            if self.count == k:
+                res.append(cur)
+                return
+            for i in range(start, n+1):
+                self.count+=1
+                dfs(i+1, cur+[i])
+                self.count-=1
+        
+        dfs(1, [])
+        return res
