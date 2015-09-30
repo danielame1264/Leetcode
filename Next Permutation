@@ -1,0 +1,33 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        # http://fisherlei.blogspot.com/2012/12/leetcode-next-permutation.html
+        
+        vio_index = -1
+        for i in range(len(nums)-1, 0, -1):
+            if nums[i-1]<nums[i]:
+                vio_index = i-1
+                break
+            
+        if vio_index != -1:
+        
+            index_to_swap = 0
+            for i in range(len(nums)-1, -1, -1):
+                if nums[i]>nums[vio_index]:
+                    index_to_swap = i
+                    break
+            nums[index_to_swap], nums[vio_index] = nums[vio_index], nums[index_to_swap]
+            
+            new = list(reversed(nums[vio_index+1:]))
+            for i in range(vio_index+1, len(nums)):
+                nums[i] = new[i-vio_index-1]
+        else:
+            new = nums[::-1]
+            for i in range(len(nums)):
+                nums[i]= new[i]
+        # return nums
+            
+        
