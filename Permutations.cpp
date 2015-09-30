@@ -54,3 +54,32 @@ public class Solution {
         }
     }
 }
+
+class Solution(object):
+    import copy
+    def permute(self, nums):
+        
+        if len(nums) == 0: return []
+        if len(nums) == 1: return [nums]
+        res = []
+        for i in range(len(nums)):
+            for j in self.permute(nums[:i] + nums[i+1:]):
+                res.append([nums[i]] + j)
+        return res
+    #     """
+    #     :type nums: List[int]
+    #     :rtype: List[List[int]]
+    #     """
+    #     res = []
+    #     cur = []
+    #     self.permuteHelper(nums, res, 0)
+    #     return res
+    
+    # def permuteHelper(self, nums, res, start):
+    #     if start<len(nums):
+    #         for i in xrange(start, len(nums)):
+    #             nums[i], nums[start] = nums[start], nums[i]
+    #             self.permuteHelper(nums, res, start+1)
+    #             nums[start], nums[i] = nums[i], nums[start]
+    #     else:
+    #         res.append(copy.deepcopy(nums))
