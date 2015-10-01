@@ -29,3 +29,30 @@ public class Solution {
         return true;
     }
 }
+
+
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        row_check = []
+        col_check = []
+        block_check = []
+        
+        for i in range(9):
+            row_check.append([False for i in range(9)])
+            col_check.append([False for i in range(9)])
+            block_check.append([False for i in range(9)])
+        
+        for i in range(9):
+            for j in range(9):
+                if board[i][j]=='.': continue
+                number = int(board[i][j])-1
+                if row_check[i][number] or col_check[j][number] or block_check[i/3*3+j/3][number]: return False
+                else:
+                    row_check[i][number] = True
+                    col_check[j][number] = True
+                    block_check[i/3*3+j/3][number] = True
+        return True
