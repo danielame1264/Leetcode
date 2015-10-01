@@ -70,3 +70,27 @@ public class Solution {
     //     return sum;
     // }
 }
+
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        cur = []
+        candidates.sort()
+        self.dfsHelper(candidates, target, 0, cur, res)
+        return res
+        
+        
+    def dfsHelper(self, candidates, target, position, cur, res):
+        if target==0:
+            res.append(cur)
+            return
+        
+        for i in range(position, len(candidates)):
+            if candidates[i]>target: return
+            self.dfsHelper(candidates, target-candidates[i], i, cur+[candidates[i]], res)
