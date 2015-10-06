@@ -1,0 +1,30 @@
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: Set[str]
+        :rtype: int
+        for every position of the beginWord, try all 26 letters
+        So we do bfs on this one
+        """
+        alpha = 'qwertyuioplkjhgfdsazxcvbnm'
+        q = []
+        wordList.add(endWord)
+        q.append((beginWord, 1))
+        while len(q)>0:
+            cur = q.pop(0)
+            if cur[0]==endWord: return cur[1]
+            depth = cur[1]
+            currentWord = cur[0]
+            for i in range(len(currentWord)):
+                p1 = currentWord[:i]
+                p2 = currentWord[i+1:]
+                for j in alpha:
+                    if j != currentWord[i]:
+                        nextWord = p1+j+p2
+                        if nextWord in wordList:
+                            q.append((nextWord,depth+1))
+                            wordList.remove(nextWord)
+        return 0
+                
