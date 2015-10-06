@@ -93,3 +93,23 @@ public static ArrayList<ArrayList<Integer>> subsets(int[] S) {
 			list.remove(list.size() - 1);
 		}
 	}
+
+
+class Solution(object):
+    import copy
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res = []
+        for i in nums:
+            res_from_last_iteration = copy.deepcopy(res)
+            for j in res_from_last_iteration:
+                j.append(i)
+            for j in res_from_last_iteration:
+                res.append(j)
+            res.append([i])
+        res.insert(0,[])
+        return res
