@@ -93,3 +93,32 @@ public class Solution {
         return Integer.MAX_VALUE;
     }
 }
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        import sys
+        level = 0
+        self.res = sys.maxint
+        if not root: return 0
+        def helper(root, level):
+            if not root.right and not root.left:
+                self.res = min(level, self.res)
+            else:
+                if root.right:
+                    helper(root.right, level+1)
+                if root.left:
+                    helper(root.left, level+1)
+        
+        helper(root, 1)
+        return self.res
