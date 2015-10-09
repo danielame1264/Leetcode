@@ -122,3 +122,27 @@ class Solution(object):
         
         helper(root, 1)
         return self.res
+
+
+class Solution(object):
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root: return 0
+        currentQ = []
+        nextQ = []
+        depth = 1
+        currentQ.append(root)
+        
+        while currentQ:
+            cur = currentQ.pop(0)
+            if not cur.right and not cur.left: return depth
+            if cur.right: nextQ.append(cur.right)
+            if cur.left: nextQ.append(cur.left)
+            
+            if len(currentQ)==0:
+                currentQ = nextQ
+                nextQ=[]
+                depth+=1
