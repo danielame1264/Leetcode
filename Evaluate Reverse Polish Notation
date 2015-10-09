@@ -1,0 +1,26 @@
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        number_stack = []
+        for i in tokens:
+            if i not in ['+','-','*','/']:
+                number_stack.append(int(i))
+            else: # take two from number_stack, do calculation and put the result back
+                number2 = number_stack.pop()
+                number1 = number_stack.pop()
+                print "new round"
+                print number1
+                print number2
+                if i=='+':
+                    tmp_result = number1+number2
+                elif i=='-':
+                    tmp_result = number1-number2
+                elif i== '*':
+                    tmp_result = number1*number2
+                elif i== '/':
+                    tmp_result = int(number1*1.0/number2)
+                number_stack.append(tmp_result)
+        return number_stack.pop()
