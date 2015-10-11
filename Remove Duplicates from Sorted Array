@@ -16,3 +16,18 @@ class Solution(object):
                 cursor+=1
                 pivot +=1
         return pivot+1
+
+
+class Solution:
+    # @param a list of integers
+    # @return an integer
+    def removeDuplicates(self, A):
+        if not A: return 0
+        slow = 0
+        for fast in xrange(len(A)):
+            if A[fast] == A[slow]:
+                continue
+            else:
+                slow += 1
+                A[slow] = A[fast]
+        return slow + 1
