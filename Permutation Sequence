@@ -1,0 +1,22 @@
+class Solution(object):
+    def getPermutation(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        self.k = k
+        self.res = ''
+        cur = []
+        nums = [str(x) for x in range(1, n+1)]
+        self.dfs(nums, n, cur)
+        return self.res
+        
+    def dfs(self, nums, n, cur):
+        
+        if len(cur)==n:
+            self.k-=1
+            if self.k==0:
+                self.res = ''.join(cur)
+        for i in range(len(nums)):
+            self.dfs(nums[0:i]+nums[i+1:], n, cur+[nums[i]])
