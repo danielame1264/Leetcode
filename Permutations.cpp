@@ -66,6 +66,21 @@ class Solution(object):
             for j in self.permute(nums[:i] + nums[i+1:]):
                 res.append([nums[i]] + j)
         return res
+    
+    def permute(self, nums):    
+        res  = []
+        cur = []
+        l = len(nums)
+        self.dfs(nums, l, res, cur)
+        return res
+        
+    def dfs(self, nums, l, res, cur):
+        
+        if len(cur)==l:
+            res.append(cur)
+        for i in range(len(nums)):
+            self.dfs(nums[0:i]+nums[i+1:], l ,res, cur+[nums[i]])
+
     #     """
     #     :type nums: List[int]
     #     :rtype: List[List[int]]
