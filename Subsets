@@ -113,3 +113,15 @@ class Solution(object):
             res.append([i])
         res.insert(0,[])
         return res
+
+    def subsets(self, nums):
+	nums.sort()
+        res = []
+        cur = []
+        self.dfs(0, nums, res, cur)
+        return res
+
+    def dfs(self, start, nums, res, cur):
+        res.append(cur[:])
+        for i in range(start, len(nums)):
+            self.dfs(i+1, nums, res, cur+[nums[i]])
