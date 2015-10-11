@@ -34,3 +34,30 @@ public class Solution {
         return head.next;
     }
 }
+
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(-1)
+        dummy.next = head
+        p = dummy
+        
+        while p.next and p.next.next:
+            tmp = p.next
+            if tmp.val == tmp.next.val:
+                while tmp and tmp.next and tmp.val == tmp.next.val:
+                    tmp = tmp.next
+                p.next = tmp.next
+            else:
+                p = p.next
+        return dummy.next
