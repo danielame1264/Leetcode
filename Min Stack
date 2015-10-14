@@ -1,0 +1,46 @@
+class MinStack(object):
+    """
+    If I put the same number into the stack again and again,
+    won't the min_stack be as big as the original stack
+    """
+    import sys
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: nothing
+        """
+        self.stack.append(x)
+        if x<self.getMin():
+            self.min_stack.append(x)
+        
+
+    def pop(self):
+        """
+        :rtype: nothing
+        """
+        if self.top() == self.getMin():
+            self.min_stack = self.min_stack[:-1]
+        self.stack = self.stack[:-1]
+        
+        
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1]
+        
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.min_stack[-1] if self.min_stack else sys.maxint
+        
