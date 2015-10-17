@@ -21,3 +21,25 @@ public class Solution {
         return max;
     }
 }
+
+
+class Solution(object):
+    def largestRectangleArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        stack = []
+        area = 0
+        i = 0
+        height.append(0)
+        
+        while i<len(height):
+            if not stack or height[i]>height[stack[-1]]:
+                stack.append(i)
+                i+=1
+            else:
+                cur_index = stack.pop()
+                width = i if not stack else i-1-stack[-1]
+                area = max(area, width*height[cur_index])
+        return area
