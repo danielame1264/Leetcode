@@ -34,3 +34,41 @@ public:
         return root;
     }  
 };
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    # def buildTree(self, preorder, inorder):
+    #     """
+    #     :type preorder: List[int]
+    #     :type inorder: List[int]
+    #     :rtype: TreeNode
+    #     """
+    #     if not preorder or not inorder: return None
+    #     root = TreeNode(preorder[0])
+        
+    #     inorder_index = inorder.index(preorder[0])
+        
+    #     root.left = self.buildTree(preorder[1:1+inorder_index], inorder[0:inorder_index])
+    #     root.right = self.buildTree(preorder[inorder_index+1:], inorder[inorder_index+1:])
+    #     return root
+        
+    def bst(self, preorder, inorder):
+        if len(preorder) == 0 or len(inorder) == 0:
+            return None
+        root = TreeNode(preorder[0])
+        idx = inorder.index(preorder[0])
+        preorder.pop(0)
+        root.left = self.bst(preorder, inorder[0:idx]) 
+        root.right = self.bst(preorder, inorder[idx+1:])
+        return root
+     
+     
+    def buildTree(self, preorder, inorder):
+        return self.bst(preorder, inorder)
