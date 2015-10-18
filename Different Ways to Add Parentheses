@@ -1,0 +1,31 @@
+class Solution(object):
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        res = []
+        if input.isdigit():
+            res.append(int(input))
+            return res
+        
+        for i, c in enumerate(input):
+            if c in ['+','-','*']:
+                res_arr_left = self.diffWaysToCompute(input[:i])
+                res_arr_right = self.diffWaysToCompute(input[i+1:])
+                
+                for m in res_arr_left:
+                    for n in res_arr_right:
+                        if c == '-':
+                            res.append(m-n)
+                        if c == '+':
+                            res.append(m+n)
+                        if c == '*':
+                            res.append(m*n)
+            else:
+                continue
+            
+        return res    
+                
+        
+        
