@@ -1,0 +1,22 @@
+class Solution(object):
+    def countDigitOne(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        base = 1
+        res = 0
+        while n>=base:
+            left = n/base
+            right = n%base
+            cur = left%10
+            
+            if cur>1:
+                res+= (left/10+1)*base
+            elif cur==1:
+                res+= left/10 * base + right+1
+            else:
+                res+= left/10 * base
+            base*=10
+        return res
+        
