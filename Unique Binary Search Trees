@@ -19,3 +19,23 @@ public:
         return total;
     }
 };
+
+class Solution(object):
+    dp = {0:1, 1:1, 2:2} 
+    def numTrees(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n in self.dp: return self.dp[n]  
+        else:  
+            ans = 0
+            for i in range(0,n):
+                num_left = self.numTrees(i)
+                num_right = self.numTrees(n-i-1)
+                if i not in self.dp:
+                    self.dp[i]=num_left
+                if n-i-1 not in self.dp:
+                    self.dp[n-i-1] = num_right
+                ans += num_left*num_right
+            return ans 
