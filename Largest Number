@@ -1,0 +1,19 @@
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        # essentially first digit as comparator
+        # sort string , that is it!!!!
+        str_l = sorted([str(x) for x in nums], cmp=self.numeric_compare)
+        res = ''
+        for s in str_l:
+            res+=s
+        return res.lstrip('0') or '0'
+    
+    def numeric_compare(self, a, b):
+        if a+b>b+a:
+            return -1
+        else:
+            return 1
