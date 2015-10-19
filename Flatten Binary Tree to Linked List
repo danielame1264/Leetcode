@@ -133,3 +133,44 @@ public class Solution {
         
     }
 }
+
+
+def flatten(self, root):
+        if root == None:
+            return
+        self.flatten(root.left)
+        self.flatten(root.right)
+        p = root
+        if p.left == None:
+            return
+        p = p.left
+        while p.right:
+            p = p.right
+        p.right = root.right
+        root.right = root.left
+        root.left = None
+        
+
+class Solution(object):
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        if not root: return
+        self.helper(root)
+        
+    def helper(self, root):
+        if not root: return None
+
+        orig_right = self.helper(root.right)
+        
+        root.right = self.helper(root.left)
+        root.left = None
+        
+        temp_root = root
+        while temp_root.right:
+            temp_root = temp_root.right
+        temp_root.right  = orig_right
+            
+        return root
