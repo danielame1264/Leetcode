@@ -1,0 +1,15 @@
+class Solution:
+    # @param {integer[]} preorder
+    # @return {boolean}
+    def verifyPreorder(self, preorder):
+        inorder = []
+        stack = []
+        
+        for p in preorder:
+            if inorder and p < inorder[-1]:
+                return False
+            while stack and p > stack[-1]:
+                inorder.append(stack.pop())
+            stack.append(p)
+        
+        return True
