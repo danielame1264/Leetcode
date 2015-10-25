@@ -51,3 +51,45 @@ public class Solution {
     }
     
 }
+
+
+
+class Solution(object):
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        position_array = [None]*n
+        res = []
+        self.helper(n, res, position_array, 0)
+        return res
+    
+    def helper(self, n, res, position_array, position):
+        if position == n:
+            res.append(self.build(position_array, n))
+            return
+        for i in range(0, n):
+            if self.match(position_array, position, i):
+                position_array[position] = i
+                self.helper(n, res, position_array, position+1)
+    
+    def match(self, position_array, position, val):
+        for i in range(0, position):
+            if position_array[i] == val:
+                return False
+            hori_diff = abs(position-i)
+            verti_diff = abs(val - position_array[i])
+            if hori_diff == verti_diff:
+                return False
+        return True
+        
+    def build(self, position_array, n):
+        res = []
+        for i in position_array:
+            s = ['.']*n
+            s[i] = 'Q'
+            res.append(''.join(s))
+        return res
+            
+            
