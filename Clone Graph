@@ -42,3 +42,39 @@ public class Solution {
 }
 
 
+
+def cloneGraph(self, node):
+        """
+        :type node: UndirectedGraphNode
+        :rtype: UndirectedGraphNode
+        """
+        # if not node: return node
+        # node_map = {}
+        
+        # new_node = UndirectedGraphNode(node.label)
+        # node_map[new_node.label] = new_node
+        # q = [node]
+        
+        # while q:
+        #     head = q.pop(0)
+        #     for n in head.neighbors:
+        #         if n.label not in node_map:
+        #             new_n = UndirectedGraphNode(n.label)
+        #             node_map[n.label] = new_n
+        #             q.append(n)
+                    
+        #         node_map[head.label].neighbors.append(node_map[n.label])
+                
+        # return new_node
+        
+        def dfs(input, map):
+            if input in map:
+                return map[input]
+            output = UndirectedGraphNode(input.label)
+            map[input] = output
+            for neighbor in input.neighbors:
+                output.neighbors.append(dfs(neighbor, map))
+            return output
+            
+        if node == None: return None
+        return dfs(node, {})
