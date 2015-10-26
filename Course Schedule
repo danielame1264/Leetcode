@@ -1,0 +1,34 @@
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        def dfs(children, visited, c):
+            if visited[c]==1:
+                return True
+            visited[c] = -1
+            for child in children[c]:
+                if visited[child]==-1 or not dfs(children, visited, child):
+                    return False
+            visited[c]=1
+            return True
+        
+        visited = [0 for x in range(numCourses)]
+        children = [[] for x in range(numCourses)]
+        
+        for p in prerequisites:
+            if p[0] not in children[p[1]]:
+                children[p[1]].append(p[0])
+        
+        for c in range(numCourses):
+            if visited[c]!=1:
+                if not dfs(children, visited, c):
+                    return False
+        return True
+        
+       
+    
+        
+        
