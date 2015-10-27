@@ -28,3 +28,26 @@ public:
         sumhelper(root->right,sum, temp);// the temp here is still the copy of its calling function, not from root->left
     }
 };
+
+
+
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        def helper(root, sum, res):
+            sum = sum*10 + root.val
+            if not root.right and not root.left:
+                res[0] += sum
+                return 
+            if root.left:
+                helper(root.left, sum, res)
+            if root.right:
+                helper(root.right, sum, res)
+        
+        res = [0]
+        if not root: return res[0]
+        helper(root,0, res)
+        return res[0]
