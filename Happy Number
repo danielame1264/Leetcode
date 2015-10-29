@@ -1,0 +1,19 @@
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        s = set()
+        while n not in s:
+            s.add(n)
+            l = []
+            while n>0:
+                l.append(n%10)
+                n = n/10
+            res = sum([pow(i,2) for i in l])
+            if res==1: return True
+            elif res in s: return False
+            n = res
+            
+                
