@@ -1,0 +1,19 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        sourceMap = {}
+        targetMap = {}
+        for i in xrange(len(s)):
+            source = sourceMap.get(s[i], None)
+            target = targetMap.get(t[i], None)
+            
+            if source is None and target is None:
+                sourceMap[s[i]] = t[i]
+                targetMap[t[i]] = s[i]
+            elif source != t[i] or target!=s[i]:
+                return False
+        return True
