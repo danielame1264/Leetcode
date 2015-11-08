@@ -13,3 +13,7 @@ class Solution(object):
                     continue
         return max(dp) if dp else 0       
         
+        
+nlogn solution:
+http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+        
