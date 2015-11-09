@@ -16,4 +16,42 @@ class Solution(object):
         
 nlogn solution:
 http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        size = len(nums)
+        if not nums: return 0
+        tailTable = [0]*size
+        tailTable[0] = nums[0]
+        maxLis = 1
+        for i in range(size):
+            if nums[i]<tailTable[0]:
+                # new smallest value
+                tailTable[0] = nums[i]
+            elif nums[i]>tailTable[maxLis-1]:
+                # A[i] wants to extend largest subsequence
+                maxLis+=1
+                tailTable[maxLis-1] = nums[i]
+            else:
+                # A[i] wants to be current end candidate of an existing
+                # subsequence. It will replace ceil value in tailTable
+                tailTable[self.binary_search(tailTable, -1, maxLis-1, nums[i])] = nums[i]
+        
+        return maxLis
+    
+    def binary_search(self, tailTable, start, end, target):
+        while start<end-1:
+            m = start+(end-start)/2
+            if tailTable[m]>=target:
+                end = m
+            else:
+                start = m
+        return end
+        
+ 
+        
         
