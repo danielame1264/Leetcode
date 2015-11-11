@@ -1,0 +1,27 @@
+class Solution(object):
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        res = []
+        cur = []
+        self.dfs(s, cur, res)
+        return res
+        
+    
+    def dfs(self, s, cur, res):
+        if len(cur)==4:
+            if not s:
+                res.append('.'.join(cur))
+        elif len(cur)<4 and s:
+            for i in xrange(1,4):
+                if i<=len(s):
+                    temp = s[0:i]
+                    if len(temp)>1 and temp[0]=='0':
+                        continue
+                    elif int(temp)<256:
+                        self.dfs(s[i:], cur+[s[0:i]], res)
+
+        
+        
