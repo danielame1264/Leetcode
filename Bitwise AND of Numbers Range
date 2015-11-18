@@ -1,0 +1,14 @@
+class Solution(object):
+    def rangeBitwiseAnd(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        http://www.cnblogs.com/grandyang/p/4431646.html
+        Essentially only check the bits on the left. Use a all 1 bit mask 
+        """
+        import sys
+        mask = sys.maxint
+        while (mask&m != mask&n):
+            mask<<=1
+        return mask&m
