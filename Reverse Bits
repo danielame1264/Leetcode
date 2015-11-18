@@ -1,0 +1,15 @@
+class Solution(object):
+    def reverseBits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ans = 0
+        for i in range(32):
+            cur = (n&1)
+            ans<<=1
+            ans|=cur
+            n>>=1
+        return ans
+        
+            
