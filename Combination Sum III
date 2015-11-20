@@ -1,0 +1,21 @@
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        retval = []
+        
+        def dfs(cur, pos, cur_sum, size):
+            if size==k and cur_sum==n:
+                retval.append(cur)
+                return
+            if size>k or cur_sum>n:
+                return
+            elif size<k:
+                for i in range(pos+1, 10):
+                    if sum(cur)+i <= n:
+                        dfs(cur+[i], i, cur_sum+i, size+1)
+        dfs([], 0, 0, 0)
+        return retval
