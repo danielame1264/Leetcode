@@ -1,0 +1,27 @@
+class Solution(object):
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        import re, operator
+        s = re.sub(r'\d+', ' \g<0> ', s)
+        l = s.split()
+        num_stack = []
+        operand_stack = []
+        op = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/':operator.floordiv}
+        prev_op = op['+'] # prev operand
+        index = 0
+        result = 0
+        cur = 0 # cur element 
+        while index<len(l):
+            if l[index].isdigit():
+                cur = int(l[index])
+            elif l[index] in '+-':
+                result = prev_op(result, cur)
+                prev_op = op[l[index]]
+            elif l[index] in '*/':
+                cur = op[l[index]](cur, int(l[index+1]))
+                index+=1
+            index+=1
+        return prev_op(result, cur)
