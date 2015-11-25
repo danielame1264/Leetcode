@@ -1,0 +1,53 @@
+from heapq import *
+class MedianFinder:
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        需要满足下面的约束条件：
+
+        大顶堆中存储的元素 均不大于 小顶堆中的元素
+        MaxHeap.size() == MinHeap.size()，或者 MaxHeap.size() == MinHeap.size() + 1
+        则有：
+        
+        当MaxHeap.size() == MinHeap.size() + 1时，中位数就是MaxHeap的堆顶元素
+        当MaxHeap.size() == MinHeap.size()时，中位数就是MaxHeap堆顶元素与MinHeap堆顶元素的均值
+        """
+        self.min_heap = []
+        self.max_heap = []
+        heapify(self.min_heap)
+        heapify(self.max_heap)
+        
+
+    def addNum(self, num):
+        """
+        Adds a num into the data structure.
+        :type num: int
+        :rtype: void
+        """
+        heappush(self.max_heap, -num)
+        min_top = self.min_heap[0] if self.min_heap else None
+        max_top = self.max_heap[0] if self.max_heap else None
+        
+        if min_top<-max_top or len(self.max_heap)>len(self.min_heap)+1:
+            heappush(self.min_heap, -heappop(self.max_heap))
+        if len(self.min_heap)>len(self.max_heap):
+            heappush(self.max_heap, -heappop(self.min_heap))
+            
+            
+        
+
+    def findMedian(self):
+        """
+        Returns the median of current data stream
+        :rtype: float
+        """
+        if len(self.min_heap)==len(self.max_heap):
+            return (-self.max_heap[0]+self.min_heap[0])/2.0
+        else:
+            return -float(self.max_heap[0])
+        
+
+# Your MedianFinder object will be instantiated and called as such:
+# mf = MedianFinder()
+# mf.addNum(1)
+# mf.findMedian()
