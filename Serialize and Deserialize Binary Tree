@@ -18,16 +18,12 @@ class Codec:
         q.append(root)
         if not root:
             return ret_val
-        
         while q:
-            level_size = len(q)
-            for i in range(level_size):
-                
-                cur = q.pop(0)
-                ret_val.append(cur.val if cur else None)
-                if cur:
-                    q.append(cur.left)
-                    q.append(cur.right)
+            cur = q.pop(0)
+            ret_val.append(cur.val if cur else None)
+            if cur:
+                q.append(cur.left)
+                q.append(cur.right)
         while ret_val[-1] is None:
             ret_val.pop(-1)
         print ret_val
@@ -48,20 +44,21 @@ class Codec:
         root = TreeNode(root_val)
         q = [root]
         while q:
-            level_size = len(q)
-            for i in range(0, level_size):
-                node = q.pop(0)
-                if len(data)>0:
-                    cur = data.pop(0)
-                    if cur is not None:
-                        node.left = TreeNode(cur)
-                        q.append(node.left)
-                if len(data)>0:
-                    cur = data.pop(0)
-                    if cur is not None:
-                        node.right = TreeNode(cur)
-                        q.append(node.right)
-                    
+
+            node = q.pop(0)
+            left, right = None, None
+
+            if len(data)>0:
+                left = data.pop(0)
+                if left is not None:
+                    node.left = TreeNode(left)    
+                    q.append(node.left)
+            if len(data)>0:
+                right = data.pop(0)
+                if right is not None:
+                    node.right = TreeNode(right)    
+                    q.append(node.right)
+            
         return root
         
         
