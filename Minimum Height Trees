@@ -1,0 +1,28 @@
+class Solution(object):
+    def findMinHeightTrees(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        http://bookshadow.com/weblog/2015/11/26/leetcode-minimum-height-trees/
+        """
+        children = collections.defaultdict(set)
+        for l in edges:
+            children[l[0]].add(l[1])
+            children[l[1]].add(l[0])
+        vertices = [x for x in range(n)]
+        
+        leaves = [x for x in children if len(children[x])==1]
+        while len(vertices)>2:
+            newLeaves = []
+            for l in leaves:
+                for x in children[l]:
+                    children[x].remove(l)
+                    if len(children[x])==1:
+                        newLeaves.append(x)
+                del children[l]
+                vertices.remove(l)
+                leaves = newLeaves
+        return vertices
+        
+        
