@@ -1,0 +1,28 @@
+class Solution(object):
+    def addOperators(self, num, target):
+        """
+        :type num: str
+        :type target: int
+        :rtype: List[str]
+        """
+        
+        ret_val = []
+        self.dfs('', num, 0, 0, target, ret_val)
+        return ret_val
+        
+    def dfs(self, path, num, position, lastNum, target, ret_val):
+        if position>=len(num):
+            if target==0:
+                ret_val.append(path)
+            return
+        for i in range(position+1, len(num)+1):
+            curStr = num[position:i]
+            if len(curStr)>=2 and curStr[0]=='0':
+                continue
+            curNum = int(curStr)
+            if position==0:
+                self.dfs(curStr, num, i, curNum, target-curNum, ret_val)
+            else:
+                self.dfs(path+"+"+curStr, num, i, curNum, target-curNum, ret_val)
+                self.dfs(path+"-"+curStr, num, i, -curNum, target+curNum, ret_val)
+                self.dfs(path+"*"+curStr, num, i, curNum*lastNum, target+lastNum-lastNum*curNum, ret_val)
