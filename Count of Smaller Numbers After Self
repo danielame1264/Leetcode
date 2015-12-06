@@ -1,0 +1,55 @@
+class Solution(object):
+    def countSmaller(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        ret_val = []
+        if not nums: return nums
+        bst = BST()
+        for n in reversed(nums):
+            ret_val.append(bst.insert(n))
+        return ret_val[::-1]
+        
+        
+
+class TreeNode(object):
+    
+    def __init__(self, val):
+        self.val = val
+        self.leftTreeCount = 0
+        self.size = 1
+        self.left = None
+        self.right = None
+
+class BST(object):
+    
+    def __init__(self, root=None):
+        self.root = root
+    
+    def insert(self, val):
+        if not self.root:
+            self.root = TreeNode(val)
+            return 0
+        node = self.root
+        cnt = 0
+        while node:
+            if val>node.val:
+                cnt+= node.leftTreeCount+node.size
+                if not node.right:
+                    node.right = TreeNode(val)
+                    # node.right.smallerCount = node.smallerCount+node.size
+                    break
+                node = node.right
+            elif val<node.val:
+                node.leftTreeCount+=1
+                if not node.left:
+                    node.left = TreeNode(val)
+                    break
+                node = node.left
+            else:
+                cnt+=node.leftTreeCount
+                node.size+=1
+                break
+        return cnt
+        
