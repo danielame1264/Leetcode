@@ -1,0 +1,29 @@
+class Solution(object):
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        sizeX = len(board)
+        sizeY = len(board[0])
+        dx = [1,1,1,0,0,-1,-1,-1]
+        dy = [1,0,-1,1,-1,0,1,-1]
+        for x in range(sizeX):
+            for y in range(sizeY):
+                
+                count_live = 0
+                for z in range(8):
+                    tempX = x+dx[z]
+                    tempY = y+dy[z]
+                    if tempX<0 or tempX>=sizeX or tempY<0 or tempY>=sizeY:
+                        continue
+                    val = board[tempX][tempY]&1
+                    count_live+= val
+                if count_live==3:
+                    board[x][y] |= 2
+                if count_live==2 and board[x][y]&1 == 1:
+                    board[x][y] |= 2
+        for x in range(sizeX):
+            for y in range(sizeY): 
+                board[x][y]>>=1
+                    
