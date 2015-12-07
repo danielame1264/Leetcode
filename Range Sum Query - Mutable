@@ -1,0 +1,90 @@
+class NumArray(object):
+    def __init__(self, nums):
+        """
+        initialize your data structure here.
+        :type nums: List[int]
+        """
+        self.st = SegTree(nums)
+        
+
+    def update(self, i, val):
+        """
+        :type i: int
+        :type val: int
+        :rtype: int
+        """
+        return self.st.update(i, val, self.st.root)
+
+    def sumRange(self, i, j):
+        """
+        sum of elements nums[i..j], inclusive.
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return self.st.get_sum(i, j, self.st.root)
+        
+class Node(object):
+    
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.s = 0
+        self.left = None
+        self.right = None
+
+class SegTree(object):
+    
+    def __init__(self, nums):
+        self.nums = nums
+        self.root = self.construct(0, len(self.nums)-1)
+    
+    def construct(self, start, end):
+        if start>end:
+            return None
+        node = Node(start, end)
+        if start == end:
+            node.s = self.nums[start]
+            return node
+        mid = (start+end)/2
+        leftNode = self.construct(start, mid)
+        rightNode = self.construct(mid+1, end)
+        node.left = leftNode
+        node.right = rightNode
+        node.s = leftNode.s+rightNode.s
+        return node
+        
+    def get_sum(self, i, j, node):
+        if i>j: return 0
+        if i==node.start and j==node.end:
+            return node.s
+        mid = (node.start+node.end)/2
+        if i>mid:
+            return self.get_sum(i, j, node.right)
+        elif j<mid:
+            return self.get_sum(i, j, node.left)
+        else:
+            return self.get_sum(i, mid, node.left)+self.get_sum(mid+1, j, node.right)
+    
+    def update(self, i, val, node):
+        
+        if node.start == node.end and node.start == i:
+            temp = node.s 
+            node.s = val
+            diff = val-temp
+            return diff
+        mid = (node.start+node.end)/2
+        diff = 0
+        if i<=mid:
+            diff = self.update(i, val, node.left)
+        if i>mid:
+            diff = self.update(i, val, node.right)
+        node.s+=diff
+        return diff
+    
+
+# Your NumArray object will be instantiated and called as such:
+# numArray = NumArray(nums)
+# numArray.sumRange(0, 1)
+# numArray.update(1, 10)
+# numArray.sumRange(1, 2)
