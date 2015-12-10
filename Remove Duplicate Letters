@@ -1,0 +1,26 @@
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if not s: return s
+        res_stack = []
+        in_stack = {i:False for i in s}
+        cnt = {i:s.count(i) for i in s}
+        for i in s:
+            cnt[i]-=1
+            if not res_stack:
+                res_stack.append(i)
+                in_stack[i]=True
+            if in_stack[i]==True:
+                continue
+            else:
+                while res_stack and i<res_stack[-1] and cnt[res_stack[-1]]>0:
+                    in_stack[res_stack[-1]]=False
+                    res_stack.pop(-1)
+                res_stack.append(i)
+                in_stack[i]=True
+        return ''.join(res_stack)
+            
+        
