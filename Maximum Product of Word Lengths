@@ -6,12 +6,15 @@ class Solution(object):
         """
         m = 0
         size = len(words)
+        words = sorted(words, cmp = lambda x, y: len(y)-len(x))
         bitArray= [self.turnIntoBitMap(i) for i in words]
-        print bitArray
+        
         for i in range(size):
+            if len(words[i])**2 < m: break
             for j in range(i+1, size):
                 if bitArray[i]&bitArray[j]==0:
                     m = max(m, len(words[i])*len(words[j]))
+                    break
         return m
         
     
