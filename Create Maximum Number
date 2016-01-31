@@ -1,0 +1,44 @@
+class Solution(object):
+    def maxNumber(self, nums1, nums2, k):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        res = []
+        # first part is trim arrays so that combined size is k
+        k = len(nums1)+len(nums2)-k
+        for i in range(k+1):
+            if len(nums1)<i or len(nums2)<i or len(nums1)<k-i or len(nums2)<k-i:
+                continue
+            res1 = self.prepare(nums1, len(nums1)-i)
+            res2 = self.prepare(nums2, len(nums2)-(k-i))
+            res = max(res, self.merge(res1, res2))
+        return res    
+            
+    def prepare(self, nums, remaining_size):
+        k = len(nums)-remaining_size
+        res = []
+        for n in nums:
+            while res and k and res[-1]<n:
+                res.pop()
+                k-=1
+            res.append(n)
+        return res[:remaining_size]
+    
+    def merge(self, nums1, nums2):
+        # second part is merge two array
+        res = []
+        while nums1 and nums2:
+            if nums1>=nums2:
+                res+=[nums1[0]]
+                nums1 = nums1[1:]
+            else:
+                res+=[nums2[0]]
+                nums2 = nums2[1:]
+        if nums1:
+            res += nums1
+        if nums2:
+            res += nums2
+        return res   
